@@ -1,8 +1,9 @@
 package com.bootcampbssoft.springbootejercicio.dominio;
 
 public class Personaje {
+    private int idPer;
     private String nombre;
-    private String edad;
+    private int edad;
     private Double peso;
     private String historia;
     private Pelicula pelicula;
@@ -10,12 +11,21 @@ public class Personaje {
     public Personaje() {
     }
 
-    public Personaje(String nombre, String edad, Double peso, String historia, Pelicula pelicula) {
+    public Personaje(int idPer, String nombre, int edad, Double peso, String historia, Pelicula pelicula) {
+        this.idPer = idPer;
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
         this.historia = historia;
         this.pelicula = pelicula;
+    }
+
+    public int getIdPer() {
+        return idPer;
+    }
+
+    public void setIdPer(int idPer) {
+        this.idPer = idPer;
     }
 
     public String getNombre() {
@@ -26,11 +36,11 @@ public class Personaje {
         this.nombre = nombre;
     }
 
-    public String getEdad() {
+    public int getEdad() {
         return edad;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
@@ -56,5 +66,17 @@ public class Personaje {
 
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
+    }
+
+    @Override
+    public String toString() {
+        return "Personaje{" +
+                "idPer=" + idPer +
+                ", nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                ", peso=" + peso +
+                ", historia='" + historia + '\'' +
+                ", pelicula=" + pelicula +
+                '}';
     }
 }
