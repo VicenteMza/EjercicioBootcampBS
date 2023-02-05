@@ -3,13 +3,14 @@ package com.bootcampbssoft.springbootejercicio.utilidades;
 import com.bootcampbssoft.springbootejercicio.dominio.Genero;
 import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
 import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Deprecated
 public class ListasUtilidades {
     private List<Pelicula> listaPeliculas;
     private List<Personaje> listaPersonajes;
@@ -79,7 +80,7 @@ public class ListasUtilidades {
         return personajes;
     }
 
-    public List<Personaje> listarPersonajes(){
+    public List<Personaje> mostrarTodosLosPersonajes(){
 
         return this.listaPersonajes;
     }
@@ -234,6 +235,7 @@ public class ListasUtilidades {
     }
 
     public List<Genero> mostrarListaDeGeneros() {
+
         return this.listaGeneros;
     }
 }

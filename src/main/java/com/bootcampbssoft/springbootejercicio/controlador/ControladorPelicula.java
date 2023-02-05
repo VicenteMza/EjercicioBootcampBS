@@ -4,7 +4,9 @@ import ch.qos.logback.core.joran.conditional.IfAction;
 import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
 
 import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
+import com.bootcampbssoft.springbootejercicio.servicies.IServicioPeliculas;
 import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +20,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/peliculas")
 public class ControladorPelicula {
-    ListasUtilidades lUtilidades = new ListasUtilidades();
+    @Autowired
+    IServicioPeliculas iServicioPeliculas;
     @GetMapping("/")
-    public ResponseEntity<?> peliculas(){
-        List<Pelicula> pelis = lUtilidades.mostrarTodasLasPeliculas();
+    public ResponseEntity<?> mostrarTodasLasPeliculas(){
+        List<Pelicula> pelis = iServicioPeliculas.mostrarTodasLasPeliculas();
         if (pelis.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -29,33 +32,33 @@ public class ControladorPelicula {
     }
 
     @GetMapping("/titulo/{titulo}")
-    public ResponseEntity<?> peliculaPorTitulo(@PathVariable String titulo){
-        List<Pelicula> peli = lUtilidades.mostrarTodasLasPeliculaPorTitulo(titulo);
+    public ResponseEntity<?> mostrarTodasLasPeliculaPorTitulo(@PathVariable String titulo){
+        List<Pelicula> peli = this.iServicioPeliculas.mostrarTodasLasPeliculaPorTitulo(titulo);
 
         if (peli.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(peli);
     }
-
+/*
     @GetMapping("/genero/{genero}")
-    public ResponseEntity<List<Pelicula>> peliculaPorGenero(@PathVariable String genero){
-        List<Pelicula> lPelis = lUtilidades.mostrarPeliculaPorGenero(genero);
+    public ResponseEntity<List<Pelicula>> mostrarPeliculaPorGenero(@PathVariable String genero){
+        List<Pelicula> lPelis = this.iServicioPeliculas.mostrarPeliculaPorGenero(genero);
 
         if (lPelis.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(lPelis);
-    }
+    }*/
 
 
     @GetMapping("/fechas/")
-    public ResponseEntity<?> peliculaPorRangoDeFecha(
+    public ResponseEntity<?> mostrarPeliculaPorRangoDeFecha(
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate hasta) {
 
-        List<Pelicula> pelis = lUtilidades.mostrarPeliculaPorRangoDeFecha(desde, hasta);
-        if (desde.isAfter(hasta)){
+        List<Pelicula> pelis = this.iServicioPeliculas.mostrarPeliculaPorRangoDeFecha(desde, hasta);
+        if (pelis == null){
             return ResponseEntity.badRequest().build();
         }
         if (pelis.isEmpty()){
@@ -65,29 +68,27 @@ public class ControladorPelicula {
     }
 
     @GetMapping("/calificacion/")
-    public ResponseEntity<?> peliculaPorRangoCalificacion(
+    public ResponseEntity<?> mostrarPeliculaPorRangoCalificacion(
                                             @RequestParam int desde,
                                             @RequestParam int hasta) {
-        List<Pelicula> pelis;
         Map<String, String> mensajeBody = new HashMap<>();
         /*
+        //No me parece que se deba hacer!
         if (desde > hasta){
             int aux = 0;
             aux = desde;
             desde = hasta;
             hasta = aux;
         }*/
-
-        if (desde >= 1 && hasta <=5){
-            pelis = lUtilidades.mostrarPeliculaPorRangoCalificacion(desde, hasta);
-        }else {
+        List<Pelicula> pelis = this.iServicioPeliculas.mostrarPeliculaPorRangoCalificacion(desde, hasta);
+        if (pelis == null){
             mensajeBody.put("message", "Las calificaiones estan fuera de rango.");
-            pelis= null;
             return ResponseEntity.badRequest().body(mensajeBody);
         }
-        if (desde >hasta){
-            return ResponseEntity.badRequest().build();
+        if (pelis.isEmpty()){
+            return ResponseEntity.notFound().build();
         }
+
         return ResponseEntity.ok().body(pelis);
     }
     /*
@@ -98,20 +99,22 @@ public class ControladorPelicula {
 
     }*/
     @PostMapping("/")
-    public ResponseEntity<Pelicula> pelicula(@RequestBody Pelicula pelicula){
-        lUtilidades.agregarPelicula(pelicula);
-
+    public ResponseEntity<?> agregarPelicula(@RequestBody Pelicula pelicula){
+        Pelicula peli = this.iServicioPeliculas.agregarPelicula(pelicula);
+        if (peli == null){
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(pelicula);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> pelicula(@PathVariable int id,
+    public ResponseEntity<?> ActualizarPelicula(@PathVariable int id,
                              @RequestBody Pelicula pelicula){
-        System.out.println("Id: "+ id + "\nPelicula: "+ pelicula);
-        Pelicula peli = lUtilidades.actualizarPelicula(id, pelicula);
+        Pelicula peli = this.iServicioPeliculas.actualizarPelicula(id, pelicula);
 
         if (peli == null){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
+
         return ResponseEntity.ok().body(peli);
     }
 }

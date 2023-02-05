@@ -1,7 +1,10 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
 import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
+import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPersonajes;
+import com.bootcampbssoft.springbootejercicio.servicies.IServicioPersonajes;
 import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +17,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/personajes")
 public class ControladorPersonaje {
-    private ListasUtilidades lUtilidades = new ListasUtilidades();
+    @Autowired
+    private IServicioPersonajes iSpersonaje;
     @GetMapping("/")
-    public ResponseEntity<List<Personaje>> personajes(){
-        List<Personaje> personajes = lUtilidades.listarPersonajes();
+    public ResponseEntity<List<Personaje>> mostrarTodosLosPersonajes(){
+        List<Personaje> personajes = iSpersonaje.mostrarTodosLosPersonajes();
 
         if (personajes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -25,29 +29,27 @@ public class ControladorPersonaje {
         return ResponseEntity.ok().body(personajes);
     }
     @GetMapping("/{nombre}")
-    public ResponseEntity<?> personajePorNombre(@PathVariable String nombre){
-        List<Personaje> pers = lUtilidades.buscarPorNombre(nombre);
+    public ResponseEntity<?> buscarPersonajePorNombre(@PathVariable String nombre){
+        List<Personaje> pers = iSpersonaje.buscarPorNombre(nombre);
         if (pers.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(pers);
     }
     @GetMapping("/edad/{edad}")
-    public ResponseEntity<?> personajePorEdad(@PathVariable int edad){
-        List<Personaje> personajes;
+    public ResponseEntity<?> buscarPersonajePorEdad(@PathVariable int edad){
         Map<String, Object> mensajeBody = new HashMap<>();
+        List<Personaje> personajes = iSpersonaje.buscarPorEdad(edad);
 
-            if (edad < 0){
+            if (personajes == null){
                 mensajeBody.put("success", Boolean.FALSE);
                 mensajeBody.put("message", "La edad no puede ser menor a Cero.");
 
                 return ResponseEntity.badRequest().body(mensajeBody);
             }
 
-        personajes = lUtilidades.buscarPorEdad(edad);
-
             if (personajes.isEmpty()){
-                mensajeBody.put("message", "No se encontro la busqueda.");
+                mensajeBody.put("message", "No se encontro la busqueda del id: " + edad);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensajeBody);
             }
 
@@ -55,47 +57,40 @@ public class ControladorPersonaje {
         return ResponseEntity.status(HttpStatus.OK).body(personajes);
     }
     @GetMapping("/edad/")
-    public ResponseEntity<?> personajePorRangoDeEdad(
+    public ResponseEntity<?> mostrarPersonajePorRangoDeEdad(
                                             @RequestParam int desde,
                                             @RequestParam int hasta) {
-        List<Personaje> lpersonas = new ArrayList<>();
+        List<Personaje> lpersonas = iSpersonaje.mostrarPersonajePorRangoDeEdad(desde, hasta);
         Map<String, Object> mensajeBody = new HashMap();
 
-        if (desde < 0 || hasta < 0 || desde > hasta){
-            mensajeBody.put("success", Boolean.FALSE);
-            mensajeBody.put("mensaje", ("Las edades no puden ser negativas"));
-            return ResponseEntity.
-                    badRequest().
-                    body(mensajeBody);
+        if (lpersonas == null){
+            mensajeBody.put("mensaje", ("Error en el ingreso de las edades"));
+            return ResponseEntity.badRequest().body(mensajeBody);
         }
-        System.out.println(desde + "\n " +hasta);
-        lpersonas = lUtilidades.mostrarPersonajePorRangoDeEdad(desde, hasta);
+        if (lpersonas.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(lpersonas);
     }
     @PostMapping("/")
-    public ResponseEntity<?> personaje(@RequestBody Personaje personaje){
-        System.out.println(personaje);
-        Personaje perso = lUtilidades.agregarPersonaje(personaje);
+    public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
+        Personaje perso = iSpersonaje.agregarPersonaje(personaje);
 
         return ResponseEntity.ok().body(perso);
-
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> personajePorID(@PathVariable int id,
+    public ResponseEntity<?> actualizarPersonajePorID(@PathVariable int id,
                                               @RequestBody Personaje personaje){
         System.out.println("Id: "+ id + "\nPersonaje: " + personaje);
-        Personaje per = lUtilidades.actualizarPersonajePorID(id, personaje);
+        Personaje per = iSpersonaje.actualizarPersonajePorID(id, personaje);
         Map<String, Object> mensajeBody = new HashMap<>();
 
-        if (id < 0){
-            mensajeBody.put("message", "La Id no puede ser negativo");
+        if (per == null){
+            mensajeBody.put("message", "Error en el ingresos del ID");
             return ResponseEntity.badRequest().body(mensajeBody);
         }
-        if (per == null){
-            mensajeBody.put("message", "No se encontro personaje con el Id " + id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensajeBody);
-        }
+
         return ResponseEntity.ok().body(per);
     }
 }

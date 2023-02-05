@@ -1,7 +1,9 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
 import com.bootcampbssoft.springbootejercicio.dominio.Genero;
+import com.bootcampbssoft.springbootejercicio.servicies.IServicioGeneros;
 import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,28 +14,36 @@ import java.util.Map;
 @RestController
 @RequestMapping("/generos")
 public class ControladorGenero {
-    ListasUtilidades lUtilidades = new ListasUtilidades();
+    IServicioGeneros iServicioGeneros;
+
+    public ControladorGenero(IServicioGeneros iServicioGeneros) {
+        this.iServicioGeneros = iServicioGeneros;
+    }
+
     @GetMapping("/")
     public ResponseEntity<?> mostrarListaDeGeneros (){
-        List<Genero> gens = lUtilidades.mostrarListaDeGeneros();
+        List<Genero> gens = this.iServicioGeneros.mostrarListaDeGeneros();
         if (gens.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(gens);
     }
     @PostMapping("/")
-    public ResponseEntity<Genero> genero(@RequestBody Genero genero){
+    public ResponseEntity<?> agregarGenero(@RequestBody Genero genero){
         System.out.println(genero);
-        Genero gen = lUtilidades.agregarGeneroDePelicula(genero);
-        return ResponseEntity.ok().body(gen);
+        Genero gen = this.iServicioGeneros.agregarGenero(genero);
+        if (gen == null){
+            return ResponseEntity.badRequest().body("El genero de pelicula: " + genero.getNombre() +", ya existe");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(gen);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> generoPorId (@PathVariable int id,
+    public ResponseEntity<?> actulizarGeneroPorId (@PathVariable int id,
                                        @RequestBody Genero genero){
         Map<String,String> mensajeBody = new HashMap<>();
-        Genero gen = lUtilidades.actulizarGeneroPorId(id, genero);
+        Genero gen = this.iServicioGeneros.actulizarGeneroPorId(id, genero);
         if (gen == null){
-            mensajeBody.put("message","Id: "+id+ " desconocido");
+            mensajeBody.put("message","Id: "+id+ " desconocido"); //hace falta mandar estos mensajes
             return ResponseEntity.badRequest().body(mensajeBody);
         }
         return ResponseEntity.ok().body(gen);
