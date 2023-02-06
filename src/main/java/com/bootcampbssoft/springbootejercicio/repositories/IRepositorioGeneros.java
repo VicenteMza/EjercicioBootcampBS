@@ -10,6 +10,6 @@ public interface IRepositorioGeneros {
     public Genero agregarGenero(Genero genero);
     public Genero actulizarNombreGeneroPorId(int id, Genero genero);
     public List<Genero> mostrarListaDeGeneros();
-    public boolean noExisteNombreDeGenero(String nombre);
-    public boolean noExisteElID(int id);
+    public boolean existeNombreDeGenero(String nombre);
+    public boolean existeElId(int id);
 }

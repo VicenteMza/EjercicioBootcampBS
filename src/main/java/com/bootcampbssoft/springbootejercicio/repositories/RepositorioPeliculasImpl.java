@@ -29,11 +29,10 @@ public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
     }
     @Override
     public List<Pelicula> mostrarTodasLasPeliculaPorTitulo(String titulo) {
-        String titu = titulo.toLowerCase().trim();
         List<Pelicula> pelis = new ArrayList<>();
 
         for (Pelicula p: listaPeliculas) {
-            if (p.getTitulo().toLowerCase().contains(titu)){
+            if (p.getTitulo().toLowerCase().trim().contains(titulo.toLowerCase().trim())){
                 pelis.add(p);
             }
         }
@@ -86,10 +85,10 @@ public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
         }
         return pelicula;
     }
-    public boolean peliculaNoRepetida(Pelicula pelicula){
+    public boolean peliculaRepetida(Pelicula pelicula){
         boolean repetido = false;
         for (Pelicula peli: this.listaPeliculas) {
-            boolean tituloPeli = peli.getTitulo().toLowerCase().contains(pelicula.getTitulo().toLowerCase());
+            boolean tituloPeli = peli.getTitulo().trim().equalsIgnoreCase(pelicula.getTitulo().trim());
             boolean fechaPeli = peli.getFecha().isEqual(pelicula.getFecha());
             if (tituloPeli && fechaPeli){
                 repetido = true;

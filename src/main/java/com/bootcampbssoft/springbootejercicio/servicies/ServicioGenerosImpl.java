@@ -16,16 +16,18 @@ public class ServicioGenerosImpl implements IServicioGeneros{
     }*/
     @Override
     public Genero agregarGenero(Genero genero) {
-        if (!this.iRepoGeneros.noExisteNombreDeGenero(genero.getNombre().toLowerCase())){
+        if (this.iRepoGeneros.existeNombreDeGenero(genero.getNombre())){
             return null;
         }
         return this.iRepoGeneros.agregarGenero(genero);
     }
     @Override
     public Genero actulizarGeneroPorId(int id, Genero genero) {
-        boolean nomExist = this.iRepoGeneros.noExisteNombreDeGenero(genero.getNombre().toLowerCase());
-
-        if (!this.iRepoGeneros.noExisteElID(id)  || !nomExist || id < 0){
+        boolean nomExist = this.iRepoGeneros.existeNombreDeGenero(genero.getNombre().trim());
+        boolean idExiste = this.iRepoGeneros.existeElId(id);
+        
+        //if ((idExiste && nomExist) || !idExiste){ //Condicion original
+        if (!idExiste || nomExist){
             return null;
         }
         return this.iRepoGeneros.actulizarNombreGeneroPorId(id, genero);

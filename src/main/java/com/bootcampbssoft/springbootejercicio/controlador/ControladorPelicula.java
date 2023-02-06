@@ -56,11 +56,14 @@ public class ControladorPelicula {
     public ResponseEntity<?> mostrarPeliculaPorRangoDeFecha(
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate hasta) {
-
+        Map<String, String> mensajeBody = new HashMap<>();
         List<Pelicula> pelis = this.iServicioPeliculas.mostrarPeliculaPorRangoDeFecha(desde, hasta);
-        if (pelis == null){
+
+        if (desde.isAfter(hasta)){
+            mensajeBody.put("message", "Invertir el orden de las fechas ingresadas.");
             return ResponseEntity.badRequest().build();
         }
+
         if (pelis.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -72,6 +75,10 @@ public class ControladorPelicula {
                                             @RequestParam int desde,
                                             @RequestParam int hasta) {
         Map<String, String> mensajeBody = new HashMap<>();
+        if(desde >  hasta){
+            mensajeBody.put("message", "Invertir el orden de las calificaciones.");
+            return ResponseEntity.badRequest().build();
+        }
         /*
         //No me parece que se deba hacer!
         if (desde > hasta){

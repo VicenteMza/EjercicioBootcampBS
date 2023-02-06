@@ -3,7 +3,6 @@ package com.bootcampbssoft.springbootejercicio.repositories;
 import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
 import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -44,7 +43,7 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
         List<Personaje> personajes = new ArrayList<>();
 
         for (Personaje perso: listaPersonajes) {
-            if (perso.getNombre().toLowerCase().contains(nom)){
+            if (perso.getNombre().toLowerCase().trim().contains(nom)){
                 personajes.add(perso);
                 /*per.setNombre(perso.getNombre());
                 per.setEdad(perso.getEdad());

@@ -57,17 +57,18 @@ public class RepositorioGenerosImpl implements IRepositorioGeneros{
         return peli;
     }
     @Override
-    public boolean noExisteNombreDeGenero(String nombre) {
-        return listaGeneros.stream()
-                            .filter(gen -> gen.getNombre().toLowerCase().equals(nombre.trim()))
+    public boolean existeNombreDeGenero(String nombre) {
+        boolean existe = listaGeneros.stream()
+                            .filter(gen -> gen.getNombre().trim().equalsIgnoreCase(nombre.trim()))
                             .findAny()
-                            .isEmpty();
+                            .isPresent();
+        return existe;
     }
-
-    public boolean noExisteElID(int id){
+@Override
+    public boolean existeElId(int id){
         return listaGeneros.stream()
                             .filter(genId -> genId.getIdGen() == id)
                             .findAny()
-                            .isEmpty();
+                            .isPresent();
     }
 }

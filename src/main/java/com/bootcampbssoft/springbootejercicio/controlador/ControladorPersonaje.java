@@ -40,32 +40,32 @@ public class ControladorPersonaje {
     public ResponseEntity<?> buscarPersonajePorEdad(@PathVariable int edad){
         Map<String, Object> mensajeBody = new HashMap<>();
         List<Personaje> personajes = iSpersonaje.buscarPorEdad(edad);
+        if (edad < 0){
+            mensajeBody.put("message", "La edad no puede ser negativa.");
 
-            if (personajes == null){
-                mensajeBody.put("success", Boolean.FALSE);
-                mensajeBody.put("message", "La edad no puede ser menor a Cero.");
+            return ResponseEntity.badRequest().body(mensajeBody);
+        }
 
-                return ResponseEntity.badRequest().body(mensajeBody);
-            }
-
-            if (personajes.isEmpty()){
-                mensajeBody.put("message", "No se encontro la busqueda del id: " + edad);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensajeBody);
-            }
+        if (personajes.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
         /*return ResponseEntity.ok().body(personajes);*/
         return ResponseEntity.status(HttpStatus.OK).body(personajes);
     }
     @GetMapping("/edad/")
     public ResponseEntity<?> mostrarPersonajePorRangoDeEdad(
-                                            @RequestParam int desde,
-                                            @RequestParam int hasta) {
-        List<Personaje> lpersonas = iSpersonaje.mostrarPersonajePorRangoDeEdad(desde, hasta);
+                                                        @RequestParam int desde,
+                                                        @RequestParam int hasta) {
         Map<String, Object> mensajeBody = new HashMap();
-
-        if (lpersonas == null){
+        if (desde > hasta && desde > 0 ){
             mensajeBody.put("mensaje", ("Error en el ingreso de las edades"));
             return ResponseEntity.badRequest().body(mensajeBody);
+        }
+        List<Personaje> lpersonas = iSpersonaje.mostrarPersonajePorRangoDeEdad(desde, hasta);
+
+        if (lpersonas == null){
+
         }
         if (lpersonas.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -73,18 +73,22 @@ public class ControladorPersonaje {
 
         return ResponseEntity.status(HttpStatus.OK).body(lpersonas);
     }
+
     @PostMapping("/")
     public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
         Personaje perso = iSpersonaje.agregarPersonaje(personaje);
-
         return ResponseEntity.ok().body(perso);
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPersonajePorID(@PathVariable int id,
                                               @RequestBody Personaje personaje){
-        System.out.println("Id: "+ id + "\nPersonaje: " + personaje);
-        Personaje per = iSpersonaje.actualizarPersonajePorID(id, personaje);
         Map<String, Object> mensajeBody = new HashMap<>();
+
+        if (id < 0){
+            mensajeBody.put("message", "El id:"+id+" ,no puede ser negativo");
+            return ResponseEntity.badRequest().body(mensajeBody);
+        }
+        Personaje per = iSpersonaje.actualizarPersonajePorID(id, personaje);
 
         if (per == null){
             mensajeBody.put("message", "Error en el ingresos del ID");

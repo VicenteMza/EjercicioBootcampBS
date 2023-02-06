@@ -12,6 +12,6 @@ public interface IRepositorioPeliculas {
     public List<Pelicula> mostrarPeliculaPorRangoCalificacion(int desde, int hasta);
     public Pelicula agregarPelicula(Pelicula pelicula);
     public Pelicula actualizarPelicula(int id, Pelicula pelicula);
-    public boolean peliculaNoRepetida(Pelicula pelicula);
+    public boolean peliculaRepetida(Pelicula pelicula);
     public boolean idNoExiste (int id);
 }

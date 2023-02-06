@@ -18,20 +18,15 @@ public class ServicioPersonajesImpl implements IServicioPersonajes{
 
     @Override
     public List<Personaje> buscarPorEdad(int edad) {
-        if (edad < 0){
-            return null;
-        }
         return iRpersonajes.buscarPorEdad(edad);
     }
     @Override
     public List<Personaje> mostrarPersonajePorRangoDeEdad(int desde, int hasta) {
-        if (desde > hasta && desde > 0){
-            return null;
-        }
         return iRpersonajes.mostrarPersonajePorRangoDeEdad(desde,hasta);
     }
     @Override
     public Personaje agregarPersonaje(Personaje personaje) {
+
         return iRpersonajes.agregarPersonaje(personaje);
     }
 
@@ -41,10 +36,7 @@ public class ServicioPersonajesImpl implements IServicioPersonajes{
     }
     @Override
     public Personaje actualizarPersonajePorID(int id, Personaje personaje) {
-        System.out.println(this.iRpersonajes.existeId(id));
-        System.out.println(id > 0);
-
-        if (this.iRpersonajes.existeId(id) && id < 0){
+        if (this.iRpersonajes.existeId(id)){
             return null;
         }
         return iRpersonajes.actualizarPersonajePorID(id,personaje);
