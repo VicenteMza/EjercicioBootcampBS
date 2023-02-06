@@ -42,8 +42,11 @@ public class ServicioPeliculasImpl implements IServicioPeliculas{
 
     @Override
     public Pelicula actualizarPelicula(int id, Pelicula pelicula) {
+        System.out.println(!this.repoPelicula.idExiste(id));
+        System.out.println(this.repoPelicula.peliculaRepetida(pelicula));
+        System.out.println("-----------------------------");
 
-        if(!this.repoPelicula.idNoExiste(id) && id > 0 && this.repoPelicula.peliculaRepetida(pelicula)){
+        if(!this.repoPelicula.idExiste(id) || this.repoPelicula.peliculaRepetida(pelicula)){
             return null;
         }
         return this.repoPelicula.actualizarPelicula(id, pelicula);

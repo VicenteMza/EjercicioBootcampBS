@@ -13,5 +13,5 @@ public interface IRepositorioPeliculas {
     public Pelicula agregarPelicula(Pelicula pelicula);
     public Pelicula actualizarPelicula(int id, Pelicula pelicula);
     public boolean peliculaRepetida(Pelicula pelicula);
-    public boolean idNoExiste (int id);
+    public boolean idExiste (int id);
 }

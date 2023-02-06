@@ -58,15 +58,13 @@ public class ControladorPersonaje {
                                                         @RequestParam int desde,
                                                         @RequestParam int hasta) {
         Map<String, Object> mensajeBody = new HashMap();
+
         if (desde > hasta && desde > 0 ){
             mensajeBody.put("mensaje", ("Error en el ingreso de las edades"));
             return ResponseEntity.badRequest().body(mensajeBody);
         }
         List<Personaje> lpersonas = iSpersonaje.mostrarPersonajePorRangoDeEdad(desde, hasta);
 
-        if (lpersonas == null){
-
-        }
         if (lpersonas.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -85,16 +83,15 @@ public class ControladorPersonaje {
         Map<String, Object> mensajeBody = new HashMap<>();
 
         if (id < 0){
-            mensajeBody.put("message", "El id:"+id+" ,no puede ser negativo");
+            mensajeBody.put("message", "El id: "+id+" ,no puede ser negativo");
             return ResponseEntity.badRequest().body(mensajeBody);
         }
         Personaje per = iSpersonaje.actualizarPersonajePorID(id, personaje);
 
         if (per == null){
-            mensajeBody.put("message", "Error en el ingresos del ID");
+            mensajeBody.put("message", "El id: "+id+ " no existe.");
             return ResponseEntity.badRequest().body(mensajeBody);
         }
-
         return ResponseEntity.ok().body(per);
     }
 }

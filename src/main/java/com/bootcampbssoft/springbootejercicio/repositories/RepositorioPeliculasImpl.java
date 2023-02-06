@@ -90,6 +90,7 @@ public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
         for (Pelicula peli: this.listaPeliculas) {
             boolean tituloPeli = peli.getTitulo().trim().equalsIgnoreCase(pelicula.getTitulo().trim());
             boolean fechaPeli = peli.getFecha().isEqual(pelicula.getFecha());
+
             if (tituloPeli && fechaPeli){
                 repetido = true;
             }
@@ -97,10 +98,10 @@ public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
         return repetido;
     }
     @Override
-    public boolean idNoExiste (int id){
+    public boolean idExiste (int id){
         return listaPeliculas.stream()
                 .filter(gen -> gen.getIdPeli() == id)
                 .findFirst()
-                .isEmpty();
+                .isPresent();
     }
 }

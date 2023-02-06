@@ -116,6 +116,13 @@ public class ControladorPelicula {
     @PutMapping("/{id}")
     public ResponseEntity<?> ActualizarPelicula(@PathVariable int id,
                              @RequestBody Pelicula pelicula){
+        Map<String, String> mensajeBody = new HashMap<>();
+
+        if (id < 0){
+            mensajeBody.put("message", "Id: "+id+",no puede ser negativo.");
+            return ResponseEntity.badRequest().body(mensajeBody);
+        }
+
         Pelicula peli = this.iServicioPeliculas.actualizarPelicula(id, pelicula);
 
         if (peli == null){

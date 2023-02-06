@@ -36,7 +36,7 @@ public class ServicioPersonajesImpl implements IServicioPersonajes{
     }
     @Override
     public Personaje actualizarPersonajePorID(int id, Personaje personaje) {
-        if (this.iRpersonajes.existeId(id)){
+        if (!this.iRpersonajes.existeId(id)){
             return null;
         }
         return iRpersonajes.actualizarPersonajePorID(id,personaje);
