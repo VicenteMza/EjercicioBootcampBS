@@ -25,6 +25,7 @@ public class ControladorPelicula {
     @GetMapping("/")
     public ResponseEntity<?> mostrarTodasLasPeliculas(){
         List<Pelicula> pelis = iServicioPeliculas.mostrarTodasLasPeliculas();
+
         if (pelis.isEmpty()){
             return ResponseEntity.notFound().build();
         }

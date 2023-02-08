@@ -1,12 +1,16 @@
 package com.bootcampbssoft.springbootejercicio.dominio;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 public class Pelicula {
+
     private int idPeli;
     private String titulo;
     private LocalDate fecha;
     private int calificacion;
-    private Personaje personaje;
+    private Personaje personaje;//para la relacion ManyToMany se debe crear un una List
 
     public Pelicula() {
     }
@@ -58,16 +62,5 @@ public class Pelicula {
 
     public void setPersonaje(Personaje personaje) {
         this.personaje = personaje;
-    }
-
-    @Override
-    public String toString() {
-        return "Pelicula{" +
-                "idPeli=" + idPeli +
-                ", titulo='" + titulo + '\'' +
-                ", fecha=" + fecha +
-                ", calificacion=" + calificacion +
-                ", personaje=" + personaje +
-                '}';
     }
 }

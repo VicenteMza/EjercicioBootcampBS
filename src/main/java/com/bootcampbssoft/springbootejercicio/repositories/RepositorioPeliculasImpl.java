@@ -75,7 +75,7 @@ public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
                 peli.setTitulo(pelicula.getTitulo());
                 peli.setCalificacion(pelicula.getCalificacion());
                 peli.setFecha(pelicula.getFecha());
-                peli.setPersonaje(pelicula.getPersonaje());
+                //peli.setPersonaje(pelicula.getPersonaje());
                 condicion = false;
                 break;
             }

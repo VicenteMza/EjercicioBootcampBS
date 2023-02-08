@@ -14,6 +14,7 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
     private List<Personaje> listaPersonajes;
 
     public RepositorioPersonajesImpl() {
+
         this.listaPersonajes = new ArrayList<>(
                 Arrays.asList(
                         new Personaje(1, "Clark Kent", 30, 90.2, "Extraterrestre, ultimo sobreviviente " +
@@ -97,7 +98,7 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
                 per.setEdad(personaje.getEdad());
                 per.setPeso(personaje.getPeso());
                 per.setHistoria(personaje.getHistoria());
-                per.setPelicula(personaje.getPelicula());
+                //per.setPelicula(personaje.getPelicula());
                 p = per;
                 break;
             }

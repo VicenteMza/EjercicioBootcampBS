@@ -3,10 +3,8 @@ package com.bootcampbssoft.springbootejercicio.utilidades;
 import com.bootcampbssoft.springbootejercicio.dominio.Genero;
 import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
 import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +15,7 @@ public class ListasUtilidades {
     private List<Genero> listaGeneros;
 
     public ListasUtilidades(){
-        this.listaPersonajes= new ArrayList<>(
+        /*this.listaPersonajes= new ArrayList<>(
                 Arrays.asList(
                         new Personaje(1,"Clark Kent", 30,90.2,"Extraterrestre, ultimo sobreviviente " +
                                 "del Planeta Crypton.",new Pelicula() ),
@@ -38,8 +36,8 @@ public class ListasUtilidades {
                                 " atiende una señal de socorro y, sin saberlo, sube a bordo una letal forma de vida extraterrestre.",
                                 new Pelicula())
                 )
-        );
-
+        );*/
+        /*
         this.listaPeliculas = new ArrayList<>(
                 Arrays.asList(
                         new Pelicula(1,"Superman I", LocalDate.of(1979, Month.MAY,25), 4, new Personaje()),
@@ -49,7 +47,7 @@ public class ListasUtilidades {
                         new Pelicula(5,"Citizen Kane", LocalDate.of(1941, Month.AUGUST,8), 5, new Personaje()),
                         new Pelicula(6,"Alien", LocalDate.of(1979, Month.MAY,25), 5, new Personaje())
                 )
-        );
+        );*/
 
         this.listaGeneros = new ArrayList<>(
                 Arrays.asList(
@@ -186,7 +184,7 @@ public class ListasUtilidades {
                 peli.setTitulo(pelicula.getTitulo());
                 peli.setCalificacion(pelicula.getCalificacion());
                 peli.setFecha(pelicula.getFecha());
-                peli.setPersonaje(pelicula.getPersonaje());
+               // peli.setPersonaje(pelicula.getPersonaje());
                 condicion = false;
                 break;
             }
@@ -207,7 +205,7 @@ public class ListasUtilidades {
                 per.setEdad(personaje.getEdad());
                 per.setPeso(personaje.getPeso());
                 per.setHistoria(personaje.getHistoria());
-                per.setPelicula(personaje.getPelicula());
+               //per.setPelicula(personaje.getPelicula());
                 p = per;
                 break;
             }else {

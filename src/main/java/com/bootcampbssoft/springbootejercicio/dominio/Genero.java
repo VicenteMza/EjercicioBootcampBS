@@ -1,8 +1,15 @@
 package com.bootcampbssoft.springbootejercicio.dominio;
 
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import java.io.Serializable;
 public class Genero {
     private int idGen;
     private String nombre;
+
     private Pelicula pelicula;
 
     public Genero() {

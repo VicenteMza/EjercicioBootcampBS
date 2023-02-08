@@ -1,13 +1,18 @@
 package com.bootcampbssoft.springbootejercicio.dominio;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+
 public class Personaje {
+
     private int idPer;
     private String nombre;
     private int edad;
     private Double peso;
     private String historia;
     private Pelicula pelicula;
-
     public Personaje() {
     }
 
@@ -60,6 +65,7 @@ public class Personaje {
         this.historia = historia;
     }
 
+
     public Pelicula getPelicula() {
         return pelicula;
     }
@@ -76,7 +82,7 @@ public class Personaje {
                 ", edad=" + edad +
                 ", peso=" + peso +
                 ", historia='" + historia + '\'' +
-                ", pelicula=" + pelicula +
+                ", peliculas=" + pelicula +
                 '}';
     }
 }
