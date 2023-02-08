@@ -32,6 +32,15 @@ public class Personaje {
     )
     private List<Pelicula> peliculas;
 
+    public Personaje(int idPer, String nombre, int edad, Double peso, String historia, List<Pelicula> peliculas) {
+        this.idPer = idPer;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.peso = peso;
+        this.historia = historia;
+        this.peliculas = peliculas;
+    }
+
     public Personaje() {
     }
 

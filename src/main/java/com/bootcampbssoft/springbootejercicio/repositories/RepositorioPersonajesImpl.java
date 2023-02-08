@@ -1,7 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.repositories;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -9,8 +7,11 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@Repository
-public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
+
+@Deprecated
+//@Repository
+public class RepositorioPersonajesImpl{// implements IRepositorioPersonajes{
+   /*
     private List<Personaje> listaPersonajes;
 
     public RepositorioPersonajesImpl() {
@@ -38,6 +39,9 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
                 )
         );
     }
+
+    */
+    /*
     @Override
     public List<Personaje> buscarPorNombre(String nombre){
         String nom = nombre.toLowerCase().trim();
@@ -51,10 +55,12 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
                 per.setHistoria(perso.getHistoria());
                 per.setPeso(perso.getPeso());
                 per.setPelicula(perso.getPelicula());*/
-            }
-        }
-        return personajes;
-    }
+          //  }
+       // }
+        //return personajes;
+   // }
+
+    /*
     @Override
     public List<Personaje> buscarPorEdad(int edad) {
         List<Personaje> perso = new ArrayList<>();
@@ -66,6 +72,8 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
         }
         return perso;
     }
+    */
+    /*
     @Override
     public List<Personaje> mostrarPersonajePorRangoDeEdad(int desde, int hasta) {
         List<Personaje> perso = new ArrayList<>();
@@ -77,17 +85,22 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
         }
         return perso;
     }
+    */
+    /*
     @Override
     public Personaje agregarPersonaje(Personaje personaje) {
         personaje.setIdPer(listaPersonajes.size()+1);
         listaPersonajes.add(personaje);
         return personaje;
     }
+    */
+    /*
     @Override
     public List<Personaje> mostrarTodosLosPersonajes(){
         return this.listaPersonajes;
     }
-
+    */
+/*
     @Override
     public Personaje actualizarPersonajePorID(int id, Personaje personaje) {
         Personaje p = new Personaje();
@@ -105,14 +118,18 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
         }
         return p;
     }
+    */
+    /*
     @Override
     public boolean existeId(int id){
-        boolean existe = false;
-        for (Personaje perso : this.listaPersonajes) {
-            if (perso.getIdPer() == id){
-                existe = true;
-            }
+        boolean existe=false;
+        for(Personaje perso:this.listaPersonajes){
+        if(perso.getIdPer()==id){
+        existe=true;
+        }
         }
         return existe;
-    }
+ }
+ */
 }
+

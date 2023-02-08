@@ -17,25 +17,21 @@ public class Genero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_genero")
-    private int idGen;
+    private int id;
     @Column(name= "nombre", length=50)
     private String nombre;
-   // @OneToMany()
-    //@JoinColumn(name = "genero_id")
    @OneToMany(cascade = CascadeType.ALL,
            mappedBy = "generos")
    List<Genero> generos;
-
-    //private Pelicula pelicula;
     public Genero() {
     }
 
-    public int getIdGen() {
-        return idGen;
+    public int getId() {
+        return id;
     }
 
-    public void setIdGen(int idGen) {
-        this.idGen = idGen;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -52,5 +48,13 @@ public class Genero {
 
     public void setGeneros(List<Genero> generos) {
         this.generos = generos;
+    }
+
+    @Override
+    public String toString() {
+        return "Genero{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

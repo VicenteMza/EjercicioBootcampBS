@@ -1,8 +1,7 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Genero;
+import com.bootcampbssoft.springbootejercicio.entidades.Genero;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioGeneros;
-import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +20,6 @@ public class ControladorGenero {
     /*public ControladorGenero(IServicioGeneros iServicioGeneros) {
         this.iServicioGeneros = iServicioGeneros;
     }*/
-
-    @GetMapping("/")
-    public ResponseEntity<?> mostrarListaDeGeneros (){
-        List<Genero> gens = this.iServicioGeneros.mostrarListaDeGeneros();
-        if (gens.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(gens);
-    }
     @PostMapping("/")
     public ResponseEntity<?> agregarGenero(@RequestBody Genero genero){
         System.out.println(genero);
@@ -39,6 +29,16 @@ public class ControladorGenero {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(gen);
     }
+    /*
+    @GetMapping("/")
+    public ResponseEntity<?> mostrarListaDeGeneros (){
+        List<Genero> gens = this.iServicioGeneros.mostrarListaDeGeneros();
+        if (gens.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(gens);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> actulizarGeneroPorId (@PathVariable int id,
                                        @RequestBody Genero genero){
@@ -56,4 +56,5 @@ public class ControladorGenero {
         }
         return ResponseEntity.ok().body(gen);
     }
+    */
 }

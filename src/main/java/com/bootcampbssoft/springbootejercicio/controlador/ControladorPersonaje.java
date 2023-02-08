@@ -1,9 +1,7 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPersonajes;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPersonajes;
-import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/personajes")
+//@RestController
+//@RequestMapping("/personajes")
 public class ControladorPersonaje {
+    /*
     @Autowired
     private IServicioPersonajes iSpersonaje;
     @GetMapping("/")
@@ -50,16 +49,16 @@ public class ControladorPersonaje {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        /*return ResponseEntity.ok().body(personajes);*/
-        return ResponseEntity.status(HttpStatus.OK).body(personajes);
-    }
-    @GetMapping("/edad/")
-    public ResponseEntity<?> mostrarPersonajePorRangoDeEdad(
-                                                        @RequestParam int desde,
-                                                        @RequestParam int hasta) {
-        Map<String, Object> mensajeBody = new HashMap();
+        //return ResponseEntity.ok().body(personajes);
+//        return ResponseEntity.status(HttpStatus.OK).body(personajes);
+//    }
+//    @GetMapping("/edad/")
+//    public ResponseEntity<?> mostrarPersonajePorRangoDeEdad(
+//                                                        @RequestParam int desde,
+//                                                        @RequestParam int hasta) {
+//        Map<String, Object> mensajeBody = new HashMap();
 
-        if (desde > hasta && desde > 0 ){
+//        if (desde > hasta && desde > 0 ){
             mensajeBody.put("mensaje", ("Error en el ingreso de las edades"));
             return ResponseEntity.badRequest().body(mensajeBody);
         }
@@ -94,4 +93,5 @@ public class ControladorPersonaje {
         }
         return ResponseEntity.ok().body(per);
     }
+    */
 }
