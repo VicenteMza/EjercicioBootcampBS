@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,6 @@ public class ControladorPersonaje {
         List<Personaje> personajes = iSpersonaje.buscarPorEdad(edad);
         if (edad < 0){
             mensajeBody.put("message", "La edad no puede ser negativa.");
-
             return ResponseEntity.badRequest().body(mensajeBody);
         }
 
@@ -75,7 +73,7 @@ public class ControladorPersonaje {
     @PostMapping("/")
     public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
         Personaje perso = iSpersonaje.agregarPersonaje(personaje);
-        return ResponseEntity.ok().body(perso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(perso);
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPersonajePorID(@PathVariable int id,
