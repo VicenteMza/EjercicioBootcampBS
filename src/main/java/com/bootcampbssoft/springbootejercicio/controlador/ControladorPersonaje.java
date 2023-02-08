@@ -78,7 +78,7 @@ public class ControladorPersonaje {
         System.out.println(personaje);
         Personaje perso = lUtilidades.agregarPersonaje(personaje);
 
-        return ResponseEntity.ok().body(perso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(perso);
 
     }
     @PutMapping("/{id}")
