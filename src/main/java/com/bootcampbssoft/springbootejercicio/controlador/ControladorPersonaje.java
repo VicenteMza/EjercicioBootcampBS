@@ -1,5 +1,6 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
+import com.bootcampbssoft.springbootejercicio.entidades.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPersonajes;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPersonajes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +13,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@RestController
-//@RequestMapping("/personajes")
+@RestController
+@RequestMapping("/personajes")
 public class ControladorPersonaje {
-    /*
     @Autowired
-    private IServicioPersonajes iSpersonaje;
+    private IServicioPersonajes iServicioPersonajes;
+
+    @PostMapping("/")
+    public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
+        Personaje perso = iServicioPersonajes.agregarPersonaje(personaje);
+        return ResponseEntity.ok().body(perso);
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<Personaje>> mostrarTodosLosPersonajes(){
-        List<Personaje> personajes = iSpersonaje.mostrarTodosLosPersonajes();
+        List<Personaje> personajes = this.iServicioPersonajes.mostrarTodosLosPersonajes();
 
         if (personajes.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(personajes);
     }
+    /*
+
+
     @GetMapping("/{nombre}")
     public ResponseEntity<?> buscarPersonajePorNombre(@PathVariable String nombre){
         List<Personaje> pers = iSpersonaje.buscarPorNombre(nombre);
@@ -71,11 +81,7 @@ public class ControladorPersonaje {
         return ResponseEntity.status(HttpStatus.OK).body(lpersonas);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
-        Personaje perso = iSpersonaje.agregarPersonaje(personaje);
-        return ResponseEntity.ok().body(perso);
-    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPersonajePorID(@PathVariable int id,
                                               @RequestBody Personaje personaje){

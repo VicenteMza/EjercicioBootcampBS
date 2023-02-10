@@ -1,5 +1,6 @@
 package com.bootcampbssoft.springbootejercicio.repositories;
 
+import com.bootcampbssoft.springbootejercicio.entidades.Genero;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -34,16 +35,7 @@ public class RepositorioGenerosImpl{// implements IRepositorioGeneros{
         System.out.println("Tamaño de la lista: " + listaGeneros.size());
         return genero;
     }
-    @Override
-    public Genero actulizarNombreGeneroPorId(int id, Genero genero) {
-        for (Genero gen: listaGeneros) {
-            if (gen.getIdGen() == id){
-                gen.setNombre(genero.getNombre());
-                break;
-            }
-        }
-        return genero;
-    }
+
     @Override
     public List<Pelicula> mostrarPeliculaPorGenero(String genero) {
         List<Pelicula> peli= new ArrayList<>();
@@ -71,5 +63,17 @@ public class RepositorioGenerosImpl{// implements IRepositorioGeneros{
                             .findAny()
                             .isPresent();
     }
-*/
+
+    @Override
+    public Genero actulizarNombreGeneroPorId( Genero genero) {
+
+        for (Genero gen: listaGeneros) {
+            if (gen.getIdGen() == id){
+                gen.setNombre(genero.getNombre());
+                break;
+            }
+        }
+        return genero;
+    }
+    */
 }

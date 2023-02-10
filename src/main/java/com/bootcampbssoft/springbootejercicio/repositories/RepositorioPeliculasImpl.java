@@ -62,12 +62,14 @@ public class RepositorioPeliculasImpl{// implements IRepositorioPeliculas{
         }
         return peli;
     }
+
     @Override
     public Pelicula agregarPelicula(Pelicula pelicula) {
         pelicula.setIdPeli(listaPeliculas.size()+1);
         listaPeliculas.add(pelicula);
         return pelicula;
     }
+
     @Override
     public Pelicula actualizarPelicula(int id, Pelicula pelicula) {
         boolean condicion = true;

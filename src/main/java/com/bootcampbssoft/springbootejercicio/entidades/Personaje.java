@@ -1,13 +1,9 @@
 package com.bootcampbssoft.springbootejercicio.entidades;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.ManyToMany;
-import javax.persistence.FetchType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 import java.util.List;
 
@@ -26,20 +22,11 @@ public class Personaje {
     private Double peso;
     @Column(name= "historia", length=500)
     private String historia;
-    //private Pelicula pelicula;
     @ManyToMany(mappedBy = "personajes",
             fetch = FetchType.LAZY
     )
+    @JsonIgnoreProperties(value="personajes")
     private List<Pelicula> peliculas;
-
-    public Personaje(int idPer, String nombre, int edad, Double peso, String historia, List<Pelicula> peliculas) {
-        this.idPer = idPer;
-        this.nombre = nombre;
-        this.edad = edad;
-        this.peso = peso;
-        this.historia = historia;
-        this.peliculas = peliculas;
-    }
 
     public Personaje() {
     }
@@ -90,5 +77,17 @@ public class Personaje {
 
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
+    }
+
+    @Override
+    public String toString() {
+        return "Personaje{" +
+                "idPer=" + idPer +
+                ", nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                ", peso=" + peso +
+                ", historia='" + historia + '\'' +
+                ", peliculas=" + peliculas +
+                '}';
     }
 }

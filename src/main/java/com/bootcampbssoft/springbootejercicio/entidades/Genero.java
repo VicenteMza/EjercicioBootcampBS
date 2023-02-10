@@ -1,5 +1,9 @@
 package com.bootcampbssoft.springbootejercicio.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Column;
@@ -16,13 +20,14 @@ import java.util.List;
 public class Genero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_genero")
+    @Column(name="id_gen")
     private int id;
     @Column(name= "nombre", length=50)
     private String nombre;
-   @OneToMany(cascade = CascadeType.ALL,
-           mappedBy = "generos")
-   List<Genero> generos;
+    @OneToMany(cascade = CascadeType.ALL,
+           mappedBy = "genero")
+    @JsonIgnoreProperties(value="genero")
+   List<Pelicula> peliculas;
     public Genero() {
     }
 
@@ -42,12 +47,12 @@ public class Genero {
         this.nombre = nombre;
     }
 
-    public List<Genero> getGeneros () {
-        return this.generos;
+    public List<Pelicula> getPeliculas () {
+        return this.peliculas;
     }
 
-    public void setGeneros(List<Genero> generos) {
-        this.generos = generos;
+    public void setPeliculas(List<Pelicula> peliculas) {
+        this.peliculas = peliculas;
     }
 
     @Override
@@ -55,6 +60,7 @@ public class Genero {
         return "Genero{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", peliculas=" + peliculas +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.bootcampbssoft.springbootejercicio.controlador;
 
 import ch.qos.logback.core.joran.conditional.IfAction;
 
+import com.bootcampbssoft.springbootejercicio.entidades.Pelicula;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPeliculas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,26 +10,58 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@RestController
-//@RequestMapping("/peliculas")
+@RestController
+@RequestMapping("/peliculas")
 public class ControladorPelicula {
-    /*
     @Autowired
     IServicioPeliculas iServicioPeliculas;
+
+    @PostMapping("/")
+    public ResponseEntity<?> agregarPelicula(@RequestBody Pelicula pelicula){
+
+        Pelicula peli = this.iServicioPeliculas.agregarPelicula(pelicula);
+        if (peli == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(pelicula);
+    }
     @GetMapping("/")
     public ResponseEntity<?> mostrarTodasLasPeliculas(){
         List<Pelicula> pelis = iServicioPeliculas.mostrarTodasLasPeliculas();
 
         if (pelis.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().body(pelis);
     }
+    /*
+    @PutMapping("/{id}")
+    public ResponseEntity<?> ActualizarPelicula(@PathVariable int id,
+                                                @RequestBody Pelicula pelicula){
+        Map<String, String> mensajeBody = new HashMap<>();
+
+        if (id < 0){
+            mensajeBody.put("message", "Id: "+id+",no puede ser negativo.");
+            return ResponseEntity.badRequest().body(mensajeBody);
+        }
+
+        Pelicula peli = this.iServicioPeliculas.actualizarPelicula(id, pelicula);
+
+        if (peli == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok().body(peli);
+    }
+    /*
+
+
 
     @GetMapping("/titulo/{titulo}")
     public ResponseEntity<?> mostrarTodasLasPeliculaPorTitulo(@PathVariable String titulo){
@@ -102,31 +135,6 @@ public class ControladorPelicula {
     //    System.out.println(pelicula);
     //   return lUtilidades.agregarPelicula(pelicula);
     //}
-    @PostMapping("/")
-    public ResponseEntity<?> agregarPelicula(@RequestBody Pelicula pelicula){
-        Pelicula peli = this.iServicioPeliculas.agregarPelicula(pelicula);
-        if (peli == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(pelicula);
-    }
-    @PutMapping("/{id}")
-    public ResponseEntity<?> ActualizarPelicula(@PathVariable int id,
-                             @RequestBody Pelicula pelicula){
-        Map<String, String> mensajeBody = new HashMap<>();
 
-        if (id < 0){
-            mensajeBody.put("message", "Id: "+id+",no puede ser negativo.");
-            return ResponseEntity.badRequest().body(mensajeBody);
-        }
-
-        Pelicula peli = this.iServicioPeliculas.actualizarPelicula(id, pelicula);
-
-        if (peli == null){
-            return ResponseEntity.badRequest().build();
-        }
-
-        return ResponseEntity.ok().body(peli);
-    }
     */
 }

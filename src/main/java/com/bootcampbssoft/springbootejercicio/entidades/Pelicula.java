@@ -1,15 +1,13 @@
 package com.bootcampbssoft.springbootejercicio.entidades;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import net.bytebuddy.description.type.TypeDescription;
+import org.apache.catalina.users.GenericRole;
+
+import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.List;
 public class Pelicula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_peicula")
+    @Column(name="id_peli")
     private int idPeli;
     @Column(name= "titulo", length=50)
     private String titulo;
@@ -27,26 +25,18 @@ public class Pelicula {
     private LocalDate fecha;
     @Column(name= "calificacion")
     private int calificacion;
-    //private Personaje personaje;
     @ManyToMany()
     @JoinTable(
             name = "peliculas_personajes",
-            joinColumns = @JoinColumn(name = "pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name = "personajes_id")
+            joinColumns = @JoinColumn(name = "peliculas_id", referencedColumnName="id_peli"),
+            inverseJoinColumns = @JoinColumn(name = "personajes_id", referencedColumnName="id_personaje")
     )
+    @JsonIgnoreProperties(value="peliculas")
     private List<Personaje> personajes;
-
-    @ManyToOne
-    @JoinColumn(name = "fk_genero")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_genero",referencedColumnName="id_gen")
+    @JsonIgnoreProperties(value="peliculas")
     private Genero genero;
-
-    public Genero getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
 
     public Pelicula() {
     }
@@ -91,11 +81,23 @@ public class Pelicula {
         this.personajes = personajes;
     }
 
-    //public Pelicula getPelicula() {
-    //    return pelicula;
-    //}
+    public Genero getGenero() {
+        return genero;
+    }
 
-    //public void setPelicula(Pelicula peliculas) {
-    //    this.pelicula = peliculas;
-    //}
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "idPeli=" + idPeli +
+                ", titulo='" + titulo + '\'' +
+                ", fecha=" + fecha +
+                ", calificacion=" + calificacion +
+                ", personajes=" + personajes +
+                ", genero=" + genero +
+                '}';
+    }
 }
