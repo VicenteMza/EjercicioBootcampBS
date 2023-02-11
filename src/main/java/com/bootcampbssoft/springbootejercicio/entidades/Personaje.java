@@ -16,7 +16,7 @@ public class Personaje {
     private int idPer;
     @Column(name= "nombre", length=50)
     private String nombre;
-    @Column(name= "edad", length=3)//esto le da solo 3 numeros de ingreso?
+    @Column(name= "edad")
     private int edad;
     @Column(name= "peso")
     private Double peso;
