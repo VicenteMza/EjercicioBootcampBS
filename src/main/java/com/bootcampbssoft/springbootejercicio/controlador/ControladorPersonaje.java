@@ -1,6 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPersonajes;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPersonajes;
 import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
@@ -17,7 +16,9 @@ import java.util.Map;
 @RequestMapping("/personajes")
 public class ControladorPersonaje {
     @Autowired
-    private IServicioPersonajes iSpersonaje;
+    private IServicioPersonajes iServicioPersonajes;
+    /*
+
     @GetMapping("/")
     public ResponseEntity<List<Personaje>> mostrarTodosLosPersonajes(){
         List<Personaje> personajes = iSpersonaje.mostrarTodosLosPersonajes();
@@ -49,8 +50,9 @@ public class ControladorPersonaje {
         }
 
         /*return ResponseEntity.ok().body(personajes);*/
-        return ResponseEntity.status(HttpStatus.OK).body(personajes);
-    }
+      //  return ResponseEntity.status(HttpStatus.OK).body(personajes);
+    //}
+    /*
     @GetMapping("/edad/")
     public ResponseEntity<?> mostrarPersonajePorRangoDeEdad(
                                                         @RequestParam int desde,
@@ -92,4 +94,6 @@ public class ControladorPersonaje {
         }
         return ResponseEntity.ok().body(per);
     }
+
+     */
 }

@@ -1,23 +1,36 @@
-package com.bootcampbssoft.springbootejercicio.dominio;
+package com.bootcampbssoft.springbootejercicio.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name="personajes")
 public class Personaje {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_personaje")
     private int idPer;
+    @Column(name= "nombre", length=50)
     private String nombre;
+    @Column(name= "edad")
     private int edad;
+    @Column(name= "peso")
     private Double peso;
+    @Column(name= "historia", length=500)
     private String historia;
-    private Pelicula pelicula;
+    @ManyToMany
+    @JoinTable(
+            name = "peliculas_personajes",
+            joinColumns = @JoinColumn(name = "personajes_id", referencedColumnName="id_personaje"),
+            inverseJoinColumns = @JoinColumn(name = "peliculas_id", referencedColumnName="id_peli")
+    )
+    @JsonIgnoreProperties({"personajes"})
+    private List<Pelicula> peliculas;
 
     public Personaje() {
-    }
-
-    public Personaje(int idPer, String nombre, int edad, Double peso, String historia, Pelicula pelicula) {
-        this.idPer = idPer;
-        this.nombre = nombre;
-        this.edad = edad;
-        this.peso = peso;
-        this.historia = historia;
-        this.pelicula = pelicula;
     }
 
     public int getIdPer() {
@@ -60,12 +73,12 @@ public class Personaje {
         this.historia = historia;
     }
 
-    public Pelicula getPelicula() {
-        return pelicula;
+    public List<Pelicula> getPeliculas() {
+        return peliculas;
     }
 
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
+    public void setPeliculas(List<Pelicula> peliculas) {
+        this.peliculas = peliculas;
     }
 
     @Override
@@ -76,7 +89,7 @@ public class Personaje {
                 ", edad=" + edad +
                 ", peso=" + peso +
                 ", historia='" + historia + '\'' +
-                ", pelicula=" + pelicula +
+                ", peliculas=" + peliculas +
                 '}';
     }
 }

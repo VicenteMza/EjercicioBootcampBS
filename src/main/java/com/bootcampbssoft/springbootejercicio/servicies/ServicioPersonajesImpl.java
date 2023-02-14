@@ -1,6 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.servicies;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPersonajes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import java.util.List;
 
 @Service
 public class ServicioPersonajesImpl implements IServicioPersonajes{
+    /*
     @Autowired
     IRepositorioPersonajes iRpersonajes;
     @Override
@@ -41,4 +41,5 @@ public class ServicioPersonajesImpl implements IServicioPersonajes{
         }
         return iRpersonajes.actualizarPersonajePorID(id,personaje);
     }
+     */
 }

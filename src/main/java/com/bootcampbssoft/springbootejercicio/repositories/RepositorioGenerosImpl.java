@@ -1,14 +1,14 @@
 package com.bootcampbssoft.springbootejercicio.repositories;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Genero;
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@Repository
-public class RepositorioGenerosImpl implements IRepositorioGeneros{
+@Deprecated
+//@Repository
+public class RepositorioGenerosImpl {
+    /*
     List<Genero> listaGeneros;
     public RepositorioGenerosImpl() {
         this.listaGeneros = new ArrayList<>(
@@ -71,4 +71,5 @@ public class RepositorioGenerosImpl implements IRepositorioGeneros{
                             .findAny()
                             .isPresent();
     }
+     */
 }

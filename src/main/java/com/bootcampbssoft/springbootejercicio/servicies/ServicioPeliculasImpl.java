@@ -1,6 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.servicies;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPeliculas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 @Service
 public class ServicioPeliculasImpl implements IServicioPeliculas{
+    /*
     @Autowired
     private IRepositorioPeliculas repoPelicula;
 
@@ -51,5 +51,5 @@ public class ServicioPeliculasImpl implements IServicioPeliculas{
         }
         return this.repoPelicula.actualizarPelicula(id, pelicula);
     }
-
+    */
 }

@@ -1,7 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.repositories;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -9,8 +7,10 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@Repository
-public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
+@Deprecated
+//@Repository
+public class RepositorioPersonajesImpl /*implements IRepositorioPersonajes*/{
+    /*
     private List<Personaje> listaPersonajes;
 
     public RepositorioPersonajesImpl() {
@@ -49,7 +49,7 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
                 per.setEdad(perso.getEdad());
                 per.setHistoria(perso.getHistoria());
                 per.setPeso(perso.getPeso());
-                per.setPelicula(perso.getPelicula());*/
+                per.setPelicula(perso.getPelicula());
             }
         }
         return personajes;
@@ -114,4 +114,5 @@ public class RepositorioPersonajesImpl implements IRepositorioPersonajes{
         }
         return existe;
     }
+     */
 }

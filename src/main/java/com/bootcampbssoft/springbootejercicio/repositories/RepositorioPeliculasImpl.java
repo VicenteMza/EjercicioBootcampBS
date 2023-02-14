@@ -1,7 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.repositories;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -9,8 +7,10 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@Repository
-public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
+//@Repository
+@Deprecated
+public class RepositorioPeliculasImpl /*implements IRepositorioPeliculas*/{
+    /*
     private List<Pelicula> listaPeliculas;
     public RepositorioPeliculasImpl(){
         listaPeliculas = new ArrayList<>(
@@ -104,4 +104,5 @@ public class RepositorioPeliculasImpl implements IRepositorioPeliculas{
                 .findFirst()
                 .isPresent();
     }
+     */
 }
