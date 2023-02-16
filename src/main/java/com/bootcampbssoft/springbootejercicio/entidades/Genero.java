@@ -11,11 +11,12 @@ import javax.persistence.Table;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="generos")
-public class Genero {
+public class Genero implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_gen")

@@ -25,7 +25,7 @@ public class ControladorGenero {
             mensajeBody.put("message","El genero de pelicula: " + genero.getNombre() +", ya existe");
             return ResponseEntity.badRequest().body(mensajeBody);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(gen);
+           return ResponseEntity.status(HttpStatus.CREATED).body(gen);
     }
 
     @GetMapping("/")
@@ -34,7 +34,7 @@ public class ControladorGenero {
         if (gens.isEmpty()){
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok().body(gens);
+           return ResponseEntity.ok().body(gens);
     }
 
     @PutMapping("/{id}")
@@ -52,6 +52,7 @@ public class ControladorGenero {
             mensajeBody.put("message","Id: "+id+ " desconocido"); //hace falta mandar estos mensajes
             return ResponseEntity.badRequest().body(mensajeBody);
         }
+
         return ResponseEntity.ok().body(gen);
     }
 }

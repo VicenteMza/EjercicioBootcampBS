@@ -1,16 +1,15 @@
 package com.bootcampbssoft.springbootejercicio.entidades;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-
 @Entity
 @Table(name="peliculas")
-public class Pelicula {
+public class Pelicula implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_peli")
@@ -21,12 +20,10 @@ public class Pelicula {
     private LocalDate fecha;
     @Column(name= "calificacion")
     private int calificacion;
-    @ManyToMany(mappedBy = "peliculas",
-                fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "peliculas", cascade = CascadeType.REFRESH)
     @JsonIgnoreProperties({"peliculas"})
     private List<Personaje> personajes;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_genero", referencedColumnName="id_gen")
     @JsonIgnoreProperties(value="peliculas")
     private Genero genero;

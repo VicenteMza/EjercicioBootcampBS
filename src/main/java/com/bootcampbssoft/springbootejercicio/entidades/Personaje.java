@@ -1,14 +1,14 @@
 package com.bootcampbssoft.springbootejercicio.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
-
 @Entity
 @Table(name="personajes")
-public class Personaje {
+public class Personaje implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_personaje")
@@ -21,13 +21,15 @@ public class Personaje {
     private Double peso;
     @Column(name= "historia", length=500)
     private String historia;
-    @ManyToMany
+    @ManyToMany (cascade = {CascadeType.MERGE,
+                            CascadeType.REFRESH},
+                            fetch = FetchType.LAZY)
     @JoinTable(
             name = "peliculas_personajes",
-            joinColumns = @JoinColumn(name = "personajes_id", referencedColumnName="id_personaje"),
-            inverseJoinColumns = @JoinColumn(name = "peliculas_id", referencedColumnName="id_peli")
+            joinColumns = @JoinColumn(name = "personajes_id", referencedColumnName = "id_personaje"),
+            inverseJoinColumns = @JoinColumn(name = "peliculas_id", referencedColumnName = "id_peli")
     )
-    @JsonIgnoreProperties({"personajes"})
+    @JsonIgnoreProperties(value="personajes")
     private List<Pelicula> peliculas;
 
     public Personaje() {

@@ -1,10 +1,8 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
-
+import com.bootcampbssoft.springbootejercicio.entidades.Pelicula;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPeliculas;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +16,30 @@ import java.util.Map;
 @RequestMapping("/peliculas")
 public class ControladorPelicula {
     @Autowired
-    IServicioPeliculas iServicioPeliculas;
-    /*
+    private IServicioPeliculas iServicioPeliculas;
+
+    @PostMapping("/")
+    public ResponseEntity<?> agregarPelicula(@RequestBody Pelicula pelicula){
+
+        Pelicula peli = this.iServicioPeliculas.agregarPelicula(pelicula);
+        if (peli == null){
+            return ResponseEntity.badRequest().build();
+        }
+            return ResponseEntity.status(HttpStatus.CREATED).body(pelicula);
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> mostrarTodasLasPeliculas(){
         List<Pelicula> pelis = iServicioPeliculas.mostrarTodasLasPeliculas();
+
         if (pelis.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok().body(pelis);
+            return ResponseEntity.ok().body(pelis);
     }
+    /*
+
+
 
     @GetMapping("/titulo/{titulo}")
     public ResponseEntity<?> mostrarTodasLasPeliculaPorTitulo(@PathVariable String titulo){
@@ -99,10 +110,7 @@ public class ControladorPelicula {
         return ResponseEntity.ok().body(pelis);
     }
     /*
-    @PostMapping("/")
-    public Pelicula pelicula(@RequestBody Pelicula pelicula){
-        System.out.println(pelicula);
-        return lUtilidades.agregarPelicula(pelicula);
+
 
     }*/
     /*

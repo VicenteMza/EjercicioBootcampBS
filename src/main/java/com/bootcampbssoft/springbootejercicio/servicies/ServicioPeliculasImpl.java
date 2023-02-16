@@ -1,21 +1,58 @@
 package com.bootcampbssoft.springbootejercicio.servicies;
 
+import com.bootcampbssoft.springbootejercicio.entidades.Pelicula;
+import com.bootcampbssoft.springbootejercicio.entidades.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPeliculas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ServicioPeliculasImpl implements IServicioPeliculas{
-    /*
     @Autowired
-    private IRepositorioPeliculas repoPelicula;
+    private IRepositorioPeliculas iRepositorioPeliculas;
+
+    @Override
+    public Pelicula agregarPelicula(Pelicula pelicula) {
+        pelicula.setTitulo(pelicula.getTitulo().toUpperCase().trim());
+
+        if (existePelicula(pelicula.getTitulo(), pelicula.getFecha())){
+            throw new RuntimeException("Titulo: "+pelicula.getTitulo()+ ", Fecha: "+pelicula.getFecha() +" existente!");
+        }
+        Pelicula p = this.iRepositorioPeliculas.save(pelicula);
+        //List<Personaje> lperso = pelicula.getPersonajes();
+
+        //for (Personaje personaje : lperso) {
+        //    this.iRepositorioPeliculas.savePersoPeli(p.getIdPeli(), personaje.getIdPer());
+        //}
+        return pelicula;
+    }
 
     @Override
     public List<Pelicula> mostrarTodasLasPeliculas() {
-        return this.repoPelicula.mostrarTodasLasPeliculas();
+        return this.iRepositorioPeliculas.findAll();
     }
+
+    private boolean existePelicula(String titulo, LocalDate fecha){
+        boolean existe = false;
+        Optional<Pelicula> peli = this.iRepositorioPeliculas.findByTitle(titulo);
+
+         if (peli.isPresent()){
+             LocalDate fechaPeli = peli.get().getFecha();
+             existe = fecha.isEqual(fechaPeli);
+             return existe;
+         }
+        System.out.println("Existe titulo: " + existe);
+        return existe;
+    }
+
+    /*
+
+
+
 
     @Override
     public List<Pelicula> mostrarTodasLasPeliculaPorTitulo(String titulo) {
@@ -32,13 +69,7 @@ public class ServicioPeliculasImpl implements IServicioPeliculas{
         return this.repoPelicula.mostrarPeliculaPorRangoCalificacion(desde,hasta);
     }
 
-    @Override
-    public Pelicula agregarPelicula(Pelicula pelicula) {
-        if (this.repoPelicula.peliculaRepetida(pelicula)){
-            return null;
-        }
-        return this.repoPelicula.agregarPelicula(pelicula);
-    }
+
 
     @Override
     public Pelicula actualizarPelicula(int id, Pelicula pelicula) {
