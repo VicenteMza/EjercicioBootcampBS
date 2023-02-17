@@ -1,13 +1,8 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
-
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
+import com.bootcampbssoft.springbootejercicio.entidades.Pelicula;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPeliculas;
-import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +16,30 @@ import java.util.Map;
 @RequestMapping("/peliculas")
 public class ControladorPelicula {
     @Autowired
-    IServicioPeliculas iServicioPeliculas;
+    private IServicioPeliculas iServicioPeliculas;
+
+    @PostMapping("/")
+    public ResponseEntity<?> agregarPelicula(@RequestBody Pelicula pelicula){
+
+        Pelicula peli = this.iServicioPeliculas.agregarPelicula(pelicula);
+        if (peli == null){
+            return ResponseEntity.badRequest().build();
+        }
+            return ResponseEntity.status(HttpStatus.CREATED).body(pelicula);
+    }
+
     @GetMapping("/")
     public ResponseEntity<?> mostrarTodasLasPeliculas(){
         List<Pelicula> pelis = iServicioPeliculas.mostrarTodasLasPeliculas();
+
         if (pelis.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok().body(pelis);
+            return ResponseEntity.ok().body(pelis);
     }
+    /*
+
+
 
     @GetMapping("/titulo/{titulo}")
     public ResponseEntity<?> mostrarTodasLasPeliculaPorTitulo(@PathVariable String titulo){
@@ -51,7 +61,7 @@ public class ControladorPelicula {
         return ResponseEntity.ok().body(lPelis);
     }*/
 
-
+/*
     @GetMapping("/fechas/")
     public ResponseEntity<?> mostrarPeliculaPorRangoDeFecha(
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
@@ -87,6 +97,7 @@ public class ControladorPelicula {
             desde = hasta;
             hasta = aux;
         }*/
+    /*
         List<Pelicula> pelis = this.iServicioPeliculas.mostrarPeliculaPorRangoCalificacion(desde, hasta);
         if (pelis == null){
             mensajeBody.put("message", "Las calificaiones estan fuera de rango.");
@@ -99,12 +110,10 @@ public class ControladorPelicula {
         return ResponseEntity.ok().body(pelis);
     }
     /*
-    @PostMapping("/")
-    public Pelicula pelicula(@RequestBody Pelicula pelicula){
-        System.out.println(pelicula);
-        return lUtilidades.agregarPelicula(pelicula);
+
 
     }*/
+    /*
     @PostMapping("/")
     public ResponseEntity<?> agregarPelicula(@RequestBody Pelicula pelicula){
         Pelicula peli = this.iServicioPeliculas.agregarPelicula(pelicula);
@@ -131,4 +140,5 @@ public class ControladorPelicula {
 
         return ResponseEntity.ok().body(peli);
     }
+    */
 }

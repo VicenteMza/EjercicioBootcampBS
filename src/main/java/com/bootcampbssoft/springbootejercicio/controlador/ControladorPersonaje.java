@@ -1,6 +1,6 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
+import com.bootcampbssoft.springbootejercicio.entidades.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPersonajes;
 import com.bootcampbssoft.springbootejercicio.servicies.IServicioPersonajes;
 import com.bootcampbssoft.springbootejercicio.utilidades.ListasUtilidades;
@@ -17,16 +17,28 @@ import java.util.Map;
 @RequestMapping("/personajes")
 public class ControladorPersonaje {
     @Autowired
-    private IServicioPersonajes iSpersonaje;
+    private IServicioPersonajes iServicioPersonajes;
+
+    @PostMapping("/")
+    public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
+        Personaje perso = this.iServicioPersonajes.agregarPersonaje(personaje);
+        System.out.println(perso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(perso);
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<Personaje>> mostrarTodosLosPersonajes(){
-        List<Personaje> personajes = iSpersonaje.mostrarTodosLosPersonajes();
+        List<Personaje> personajes = this.iServicioPersonajes.findAll();
 
         if (personajes.isEmpty()){
             return ResponseEntity.notFound().build();
         }
+        System.out.println(personajes);
         return ResponseEntity.ok().body(personajes);
     }
+    /*
+
+
     @GetMapping("/{nombre}")
     public ResponseEntity<?> buscarPersonajePorNombre(@PathVariable String nombre){
         List<Personaje> pers = iSpersonaje.buscarPorNombre(nombre);
@@ -49,8 +61,9 @@ public class ControladorPersonaje {
         }
 
         /*return ResponseEntity.ok().body(personajes);*/
-        return ResponseEntity.status(HttpStatus.OK).body(personajes);
-    }
+      //  return ResponseEntity.status(HttpStatus.OK).body(personajes);
+    //}
+    /*
     @GetMapping("/edad/")
     public ResponseEntity<?> mostrarPersonajePorRangoDeEdad(
                                                         @RequestParam int desde,
@@ -70,11 +83,7 @@ public class ControladorPersonaje {
         return ResponseEntity.status(HttpStatus.OK).body(lpersonas);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<?> agregarPersonaje(@RequestBody Personaje personaje){
-        Personaje perso = iSpersonaje.agregarPersonaje(personaje);
-        return ResponseEntity.status(HttpStatus.CREATED).body(perso);
-    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPersonajePorID(@PathVariable int id,
                                               @RequestBody Personaje personaje){
@@ -92,4 +101,6 @@ public class ControladorPersonaje {
         }
         return ResponseEntity.ok().body(per);
     }
+
+     */
 }

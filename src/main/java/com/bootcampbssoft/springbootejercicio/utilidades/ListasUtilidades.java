@@ -1,8 +1,5 @@
 package com.bootcampbssoft.springbootejercicio.utilidades;
 
-import com.bootcampbssoft.springbootejercicio.dominio.Genero;
-import com.bootcampbssoft.springbootejercicio.dominio.Pelicula;
-import com.bootcampbssoft.springbootejercicio.dominio.Personaje;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 @Deprecated
 public class ListasUtilidades {
+    /*
     private List<Pelicula> listaPeliculas;
     private List<Personaje> listaPersonajes;
     private List<Genero> listaGeneros;
@@ -70,11 +68,11 @@ public class ListasUtilidades {
         for (Personaje perso: listaPersonajes) {
             if (perso.getNombre().toLowerCase().contains(nom)){
                 personajes.add(perso);
-                /*per.setNombre(perso.getNombre());
-                per.setEdad(perso.getEdad());
-                per.setHistoria(perso.getHistoria());
-                per.setPeso(perso.getPeso());
-                per.setPelicula(perso.getPelicula());*/
+                //per.setNombre(perso.getNombre());
+                //per.setEdad(perso.getEdad());
+                //per.setHistoria(perso.getHistoria());
+                //per.setPeso(perso.getPeso());
+                //per.setPelicula(perso.getPelicula());
             }
         }
         return personajes;
@@ -238,4 +236,5 @@ public class ListasUtilidades {
 
         return this.listaGeneros;
     }
+     */
 }
