@@ -19,9 +19,9 @@ public interface IRepositorioPeliculas extends CrudRepository<Pelicula, Integer>
 
     @Override
     Optional<Pelicula> findById(Integer integer);
-    @Modifying
-    @Transactional
-    @Query(value = "insert into peliculas_personajes (personajes_id, peliculas_id) values (?,?)",  nativeQuery = true)
+    //@Modifying
+    //@Transactional
+    //@Query(value = "insert into peliculas_personajes (personajes_id, peliculas_id) values (?,?)",  nativeQuery = true)
     public Optional<?> savePersoPeli(int idPerso, int idPeli);
     /*
 

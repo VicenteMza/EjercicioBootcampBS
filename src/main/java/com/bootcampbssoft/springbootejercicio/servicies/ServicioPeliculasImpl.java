@@ -1,7 +1,6 @@
 package com.bootcampbssoft.springbootejercicio.servicies;
 
 import com.bootcampbssoft.springbootejercicio.entidades.Pelicula;
-import com.bootcampbssoft.springbootejercicio.entidades.Personaje;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositorioPeliculas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
