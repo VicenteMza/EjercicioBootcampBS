@@ -1,10 +1,12 @@
 package com.bootcampbssoft.springbootejercicio.servicies;
 
+import com.bootcampbssoft.springbootejercicio.entidades.CharactersMovies;
 import com.bootcampbssoft.springbootejercicio.entidades.Movie;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositoryMovie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,46 +24,49 @@ public class ServiceMovieImpl implements IServiceMovie {
             throw new RuntimeException("Titulo: "+movie.getTitle()+ ", Fecha: "+movie.getReleaseDate() +" existente!");
         }
         movie.setTitle(movie.getTitle().toUpperCase().trim());
-        return this.iMovieRepository.save(movie);
+        Movie m = this.iMovieRepository.save(movie);
+
+        Optional<Movie> retuMovie = this.iMovieRepository.findById(m.getId());
+        Movie mR = retuMovie.get();
+        List<CharactersMovies> lChMo = mR.getCharactersMovies();
+        for (CharactersMovies chMo: lChMo) {
+            chMo.setMovie(m);
+        }
+        this.iMovieRepository.save(mR);
+        return mR;
     }
 
     @Override
     public List<Movie> showAllMovies() {
         return this.iMovieRepository.findAll();
     }
-
-    /*
-
-
-
-
     @Override
-    public List<Movie> mostrarTodasLasPeliculaPorTitulo(String titulo) {
-        return this.repoPelicula.mostrarTodasLasPeliculaPorTitulo(titulo);
+    public List<Movie> showMoviesByTitle(String title) {
+        return this.iMovieRepository.findByTitle(title);
     }
 
     @Override
-    public List<Movie> mostrarPeliculaPorRangoDeFecha(LocalDate desde, LocalDate hasta) {
-        return this.repoPelicula.mostrarPeliculaPorRangoDeFecha(desde, hasta);
+    public List<Movie> showMovieByDateRange(LocalDate desde, LocalDate hasta) {
+        return this.iMovieRepository.showMovieByDateRange(desde, hasta);
     }
 
     @Override
-    public List<Movie> mostrarPeliculaPorRangoCalificacion(int desde, int hasta) {
-        return this.repoPelicula.mostrarPeliculaPorRangoCalificacion(desde,hasta);
+    public List<Movie> showMovieByRangeRating(int desde, int hasta) {
+        return this.iMovieRepository.showMovieByRangeRating(desde,hasta);
     }
 
-
-
     @Override
-    public Movie actualizarPelicula(int id, Movie pelicula) {
-        System.out.println(!this.repoPelicula.idExiste(id));
-        System.out.println(this.repoPelicula.peliculaRepetida(pelicula));
-        System.out.println("-----------------------------");
+    public Movie upDateMovie(int id, Movie movie) {
+        Optional<Movie> oMovie = this.iMovieRepository.findById(id);
 
-        if(!this.repoPelicula.idExiste(id) || this.repoPelicula.peliculaRepetida(pelicula)){
-            return null;
+        if (oMovie.isPresent()){
+            Movie mov = oMovie.get();
+            mov.setTitle(movie.getTitle());
+            mov.setReleaseDate(movie.getReleaseDate());
+            mov.setRating(movie.getRating());
+
+            return this.iMovieRepository.save(mov);
         }
-        return this.repoPelicula.actualizarPelicula(id, pelicula);
+        return null;
     }
-    */
 }

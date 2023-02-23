@@ -7,12 +7,8 @@ import java.util.List;
 public interface IServiceCharacter {
     public Character createCharacter(Character character);
     public List<Character> showAllCharacters();
-    /*
-    public List<Character> buscarPorNombre(String nombre);
-    public List<Character> buscarPorEdad(int edad);
-
-
-    public Character actualizarPersonajePorID(int id, Character personaje);
-    public List<Character> mostrarPersonajePorRangoDeEdad(int desde, int hasta);
-     */
+    public List<Character> searchCharacterByName(String name);
+    public List<Character> searchCharacterByAge(int age);
+    public List<Character> showCharacterByAgeRange(int desde, int hasta);
+    public Character updateCharacterByID(int id, Character personaje);
 }

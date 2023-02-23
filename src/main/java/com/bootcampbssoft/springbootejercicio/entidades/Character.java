@@ -21,17 +21,11 @@ public class Character implements Serializable {
     private Double weight;
     @Column(name= "history", length=500)
     private String history;
-    @ManyToMany (cascade = {CascadeType.MERGE,
-                            CascadeType.REFRESH},
-                            fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "movies_characters",
-            joinColumns = @JoinColumn(name = "characters_id", referencedColumnName = "id_character"),
-            inverseJoinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id_movie")
-    )
-    @JsonIgnoreProperties(value="characters")
-    //@JsonBackReference
-    private List<Movie> movies;
+    //Relacion con CharactersMovies
+    @OneToMany(mappedBy = "character",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"character"})
+    private List<CharactersMovies> charactersMovies;
   
     public Character() {
     }
@@ -76,23 +70,11 @@ public class Character implements Serializable {
         this.history = history;
     }
 
-    public List<Movie> getMovies() {
-        return movies;
+    public List<CharactersMovies> getCharactersMovies() {
+        return charactersMovies;
     }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
-
-    @Override
-    public String toString() {
-        return "Character{" +
-                "idPer=" + id +
-                ", nombre='" + name + '\'' +
-                ", edad=" + age +
-                ", peso=" + weight +
-                ", historia='" + history + '\'' +
-                ", peliculas=" + movies +
-                '}';
+    public void setCharactersMovies(List<CharactersMovies> charactersMovies) {
+        this.charactersMovies = charactersMovies;
     }
 }

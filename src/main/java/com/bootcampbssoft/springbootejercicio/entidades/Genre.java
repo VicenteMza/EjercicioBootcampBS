@@ -23,6 +23,7 @@ public class Genre implements Serializable {
     private int id;
     @Column(name= "name", length=50)
     private String name;
+    //relacion con Movie
     @OneToMany(cascade = CascadeType.ALL,
            mappedBy = "genre")
     @JsonIgnoreProperties(value = {"genre"})
@@ -52,14 +53,5 @@ public class Genre implements Serializable {
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
-    }
-
-    @Override
-    public String toString() {
-        return "Genre{" +
-                "id=" + id +
-                ", nombre='" + name + '\'' +
-                ", peliculas=" + movies +
-                '}';
     }
 }

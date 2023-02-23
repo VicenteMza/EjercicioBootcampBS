@@ -1,7 +1,9 @@
 package com.bootcampbssoft.springbootejercicio.servicies;
 
 import com.bootcampbssoft.springbootejercicio.entidades.Genre;
+import com.bootcampbssoft.springbootejercicio.entidades.Movie;
 import com.bootcampbssoft.springbootejercicio.repositories.IRepositoryGenre;
+import com.bootcampbssoft.springbootejercicio.repositories.IRepositoryMovie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class ServiceGenresImpl implements IServiceGenre {
     @Autowired
     private IRepositoryGenre iGenreRepository;
+
+    @Autowired
+    private IRepositoryMovie iRepositoryMovie;
     @Override
     public Genre createGenre(Genre genre) {
         genre.setName(genre.getName().toUpperCase().trim());
@@ -28,6 +33,8 @@ public class ServiceGenresImpl implements IServiceGenre {
 
         return this.iGenreRepository.findAll();
     }
+
+
 
     @Override
     public Genre updateGenreById(int id, Genre genre) {
@@ -52,6 +59,18 @@ public class ServiceGenresImpl implements IServiceGenre {
             System.out.println("Id: "+ id +", no exite\n" +e);
         }
         return gen;
+    }
+
+    @Override
+    public List<Movie> findByGenreName(String name) {
+        List<Movie> lMovies = null;
+        Optional<Genre> oGenre = this.iGenreRepository.findByName(name);
+        if (oGenre.isPresent()){
+            Genre genre = oGenre.get();
+            lMovies = this.iRepositoryMovie.findByGenreId(genre.getId());
+        }
+
+        return lMovies;
     }
 
     private Optional<Genre> nameExists(String name){

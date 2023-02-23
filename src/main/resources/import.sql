@@ -12,8 +12,8 @@ INSERT INTO characters(name, age, weight, history) VALUES('SHAUN', 30, 85.0, 'un
 INSERT INTO characters(name, age, weight, history) VALUES('CLARK KENT', 30, 90.2, 'Extraterrestre, ultimo sobreviviente del Planeta Crypton.');
 INSERT INTO characters(name, age, weight, history) VALUES('ELLEN RIPLEY', 28, 65.0, 'La tripulación del remolcador espacial Nostromo atiende una señal de socorro y, sin saberlo, sube a bordo una letal forma de vida extraterrestre.');
 
-INSERT INTO movies_characters(movies_id, characters_id) VALUES(1, 1);
-INSERT INTO movies_characters(movies_id, characters_id) VALUES(3, 3);
+INSERT INTO characters_movies(movie_id, character_id) VALUES(1, 1);
+INSERT INTO characters_movies(movie_id, character_id) VALUES(3, 3);
 
 
 

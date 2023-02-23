@@ -20,10 +20,12 @@ public class Movie implements Serializable {
     private LocalDate releaseDate;
     @Column(name= "rating")
     private int rating;
-    @ManyToMany(mappedBy = "movies")
-    @JsonIgnoreProperties(value = {"movies"})
-    //@JsonManagedReference
-    private List<Character> characters;
+    //Relacion con CharactersMovies
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "movie")
+    @JsonIgnoreProperties(value = "movie")
+    private List<CharactersMovies> charactersMovies;
+    //relacion con Genre
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id", referencedColumnName = "id_genre")
     @JsonIgnoreProperties(value = "movies")
@@ -64,12 +66,12 @@ public class Movie implements Serializable {
         this.rating = rating;
     }
 
-    public List<Character> getCharacters() {
-        return characters;
+    public List<CharactersMovies> getCharactersMovies() {
+        return charactersMovies;
     }
 
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
+    public void setCharactersMovies(List<CharactersMovies> charactersMovies) {
+        this.charactersMovies = charactersMovies;
     }
 
     public Genre getGenre() {
@@ -78,17 +80,5 @@ public class Movie implements Serializable {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "idPeli=" + id +
-                ", titulo='" + title + '\'' +
-                ", fecha=" + releaseDate +
-                ", calificacion=" + rating +
-                ", personajes=" + characters +
-                ", genero=" + genre +
-                '}';
     }
 }

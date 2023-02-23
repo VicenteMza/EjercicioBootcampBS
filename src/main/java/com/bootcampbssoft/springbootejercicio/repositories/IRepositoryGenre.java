@@ -12,7 +12,7 @@ public interface IRepositoryGenre extends CrudRepository<Genre, Integer> {
     public List<Genre> findAll();
     public Optional<Genre> findById(Integer id);
     public Optional<Genre> findById(int id);
-    @Query("select name from Genre where name = ?1")
+    @Query("SELECT u FROM Genre u WHERE LOWER(u.name) = LOWER(:name)")
     public Optional<Genre> findByName(String name);
 
 }

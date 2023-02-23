@@ -1,6 +1,7 @@
 package com.bootcampbssoft.springbootejercicio.controlador;
 
 import com.bootcampbssoft.springbootejercicio.entidades.Genre;
+import com.bootcampbssoft.springbootejercicio.entidades.Movie;
 import com.bootcampbssoft.springbootejercicio.servicies.IServiceGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,11 @@ import java.util.Map;
 public class ControllerGenre {
 
     @Autowired
-    IServiceGenre iGenreService;
+    IServiceGenre iServiceGenre;
     @PostMapping("/")
     public ResponseEntity<?> createGenre(@RequestBody Genre genre){
         Map<String,String> mensajeBody = new HashMap<>();
-        Genre gen = this.iGenreService.createGenre(genre);
+        Genre gen = this.iServiceGenre.createGenre(genre);
         if (gen == null){
             mensajeBody.put("message","El genero de pelicula: " + genre.getName() +", ya existe");
             return ResponseEntity.badRequest().body(mensajeBody);
@@ -30,11 +31,24 @@ public class ControllerGenre {
 
     @GetMapping("/")
     public ResponseEntity<?> genreList (){
-        List<Genre> gens = this.iGenreService.genreList();
+        List<Genre> gens = this.iServiceGenre.genreList();
         if (gens.isEmpty()){
             return ResponseEntity.badRequest().build();
         }
            return ResponseEntity.ok().body(gens);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<?> findByGenreName(@PathVariable String name){
+        Map<String,String> messageBody = new HashMap<>();
+        List<Movie> lMovie = this.iServiceGenre.findByGenreName(name);
+
+        if (lMovie == null){
+            messageBody.put("message", "No se encontro coincidencia con el nombre!");
+            return ResponseEntity.badRequest().body(messageBody);
+        }
+
+        return ResponseEntity.ok().body(lMovie);
     }
 
     @PutMapping("/{id}")
@@ -47,9 +61,9 @@ public class ControllerGenre {
             return ResponseEntity.badRequest().body(mensajeBody);
         }
 
-        Genre gen = this.iGenreService.updateGenreById(id, genre);
+        Genre gen = this.iServiceGenre.updateGenreById(id, genre);
         if (gen == null){
-            mensajeBody.put("message","Id: "+id+ " desconocido"); //hace falta mandar estos mensajes
+            mensajeBody.put("message","Id: "+id+ " desconocido");
             return ResponseEntity.badRequest().body(mensajeBody);
         }
 
